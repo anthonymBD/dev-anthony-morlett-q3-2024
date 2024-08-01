@@ -1,0 +1,187 @@
+{%- style -%}
+
+
+.inside-padding{
+padding: calc({{ section.settings.padding_inside }}px * 0.75);
+
+}
+
+.animation_heading{text-align:center;}
+
+@media screen and (min-width: 750px) {
+.text-animation-{{ section.id }}-padding {
+padding: {{ section.settings.padding_top }}px;
+
+}
+
+.inside-padding{
+padding: {{ section.settings.padding_inside }}px;
+position: relative;
+margin: 0;
+white-space: nowrap;
+}
+
+@keyframes right{
+from { transform: translateX(100%);}
+to { transform: translateX(-100%);}
+}
+
+
+@keyframes left{
+from { transform: translateX(-100%);}
+to { transform: translateX(100%);}
+}
+
+
+.left-animation{ animation:left {{ section.settings.scrolling_speed }}s linear infinite;}
+.right-animation {animation:right {{ section.settings.scrolling_speed }}s linear infinite; }
+
+
+
+
+.inside-padding, .inside-padding.hover {
+position: relative;
+margin: 0;
+white-space: nowrap;
+}
+
+.left-animation { animation:left {{ section.settings.scrolling_speed }}s linear infinite;}
+.right-animation { animation:right {{ section.settings.scrolling_speed }}s linear infinite;}
+
+.inside-padding.hover {
+&:hover {
+animation-play-state: paused;
+margin: 0;
+white-space: nowrap;
+}
+}
+
+
+{%- endstyle -%}
+
+
+<div class="text-animation-{{ section.id }}-padding">
+    <div class="color-{{ section.settings.color_scheme }} gradient">
+
+        <div class="inside-padding {% if section.settings.hover %}hover{% endif %} {{ section.settings.direction }}">
+
+            {%- for block in section.blocks -%}
+            {% case block.type %}
+            {%- when 'heading' -%}
+            <h2 class="animation_heading {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
+                {{ block.settings.heading }}
+            </h2>
+
+
+            {%- endcase -%}
+            {%- endfor -%}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{ "name": "custom-banner",
+"settings":[
+
+{
+"type": "checkbox",
+"id":"hover",
+"label": "pause on hover",
+"default": false
+}, {
+"type": "color_scheme",
+"id": "color_scheme",
+"label": "t:sections.all.colors.label",
+"default": "scheme-1"
+},
+{
+"type": "header",
+"content": "t:sections.all.padding.section_padding_heading"
+},
+{
+"type": "range",
+"id": "scrolling_speed",
+"label": "scrolling speed",
+"min": 3,
+"max": 100,
+"step": 1,
+"unit": "s",
+"default": 30
+},
+{
+"type": "select",
+"id": "direction",
+"label": "direction",
+"options": [
+{
+"value": "right-animation",
+"label": "right-animation"
+},
+{
+"value": "left-animation",
+"label": "left-animation"
+}
+],
+"default": "left-animation"
+},
+{
+"type": "range",
+"id": "padding_outer",
+"min": 0,
+"max": 100,
+"step": 4,
+"unit": "px",
+"label": "Padding outside the text box",
+"default": 12
+},
+{
+"type": "range",
+"id": "padding_inside",
+"min": 0,
+"max": 100,
+"step": 4,
+"unit": "px",
+"label": "Padding inside text box",
+"default": 12
+}
+], "blocks":[{
+"type" : "heading",
+"name" : "t:sections.image-with-text.blocks.heading.name",
+"limit" : 1,
+"settings" : [
+{
+"type" : "inline_richtext",
+"id" : "heading",
+"default" : "text",
+"label" : "t:sections.image-with-text.blocks.heading.settings.heading.label"
+},
+{
+"type" : "select",
+"id" : "heading_size",
+"options" : [
+{
+"value" : "h2",
+"label" : "t:sections.all.heading_size.options__1.label"
+},
+{
+"value" : "h1",
+"label" : "t:sections.all.heading_size.options__2.label"
+},
+{
+"value" : "h0",
+"label" : "t:sections.all.heading_size.options__3.label"
+}
+],
+"default" : "h1",
+"label" : "t:sections.all.heading_size.label"
+}
+]
+}],
+
+
+"presets":[{
+"name":"custom-banner"
+}]
+}
+
+{% endschema %}
