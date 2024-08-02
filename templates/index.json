@@ -1,7 +1,7 @@
 {
   "sections": {
-     "custom_banner":{
-        "type":"custom-banner"
+     "custom_banner_test":{
+        "type":"custom-banner-test"
      },
     "image_banner": {
       "type": "image-banner",
@@ -203,7 +203,7 @@
     }
   },
   "order": [
-    "custom_banner",
+    "custom_banner_test",
     "image_banner",
     "rich_text",
     "featured_collection",

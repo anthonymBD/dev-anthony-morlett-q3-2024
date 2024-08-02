@@ -1,14 +1,11 @@
+{%- style -%}
+    
+.inside-padding{
+    padding: calc({{ section.settings.padding_inside }}px * 0.75);}
 
-    
-    {%- style -%}
-    
-    
-    .inside-padding{
-    padding: calc({{ section.settings.padding_inside }}px * 0.75);
-    
-    }
-
-    
+.message{ text-align: center;
+padding:1rem 0;
+}
 {%- endstyle -%}
 
 <div class="custom-banner{{ section.id }}">
@@ -17,20 +14,30 @@
         <div class="message {% if block.settings.fallback %}fallback{% endif %}"
             data-utm="{{ block.settings.utm_parameter_value }}">
             {% if block.settings.link != blank %}
-            <a href="{{ block.settings.link }}">
+            <a href="{{ block.settings.link }}{% if block.settings.utm_parameter_value != blank %}?utm_source={{ block.settings.utm_parameter_value }}{% endif %}"
+                class="link link--text focus-inset">
                 {{ block.settings.message }}
             </a>
             {% else %}
-            {{ block.settings.message }}
+            <p> {{ block.settings.message }} </p>
             {% endif %}
         </div>
         {% endfor %}
     </div>
 </div>
 
+
+
+
+{%- if request.design_mode -%}
+<script src="{{ 'amBanner.js' | asset_url }}" defer="defer"></script>
+
+
+    {%- endif -%}
+
 {% schema %}
 { "name":
-    "custom-banner",
+    "custom-banner-test",
         "settings" : [
             {
                 "type" : "color_scheme",
@@ -61,11 +68,6 @@
                 "label": "Message"
                 },
                 {
-                "type": "checkbox",
-                "id": "fallback",
-                "label": "Fallback"
-                },
-                {
                 "type": "text",
                 "id": "utm_parameter_value",
                 "label": "UTM Parameter Value"
@@ -80,7 +82,7 @@
                 ],
 
                                 "presets" : [ {
-                                    "name" : "custom-banner"
+                                    "name" : "custom-banner-test"
                                 } ]
 }
 
