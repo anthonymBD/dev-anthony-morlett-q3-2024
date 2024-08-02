@@ -13,7 +13,7 @@ function showDefaultMsg() {
 
     if ($fallback) $fallback.style.display = 'block'
 }
-console.log(showDefaultMsg() )
+
 
 function showMsgByParameter(parameterValue) {
     const $msg = document.querySelector(`.message[data-utm="${parameterValue}"]`)

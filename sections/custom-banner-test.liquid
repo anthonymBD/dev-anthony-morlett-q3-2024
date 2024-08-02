@@ -5,7 +5,11 @@
 
 .message{ text-align: center;
 padding:1rem 0;
+display: flex;
+justify-content: center;
 }
+
+
 {%- endstyle -%}
 
 <div class="custom-banner{{ section.id }}">
@@ -21,9 +25,12 @@ padding:1rem 0;
             {% else %}
             <p> {{ block.settings.message }} </p>
             {% endif %}
+            <button id="close-banner-{{ section.id }}" class="close-banner" onclick="closeBanner('{{ section.id }}')">close</button>
         </div>
         {% endfor %}
+        
     </div>
+  
 </div>
 
 
@@ -31,7 +38,6 @@ padding:1rem 0;
 
 {%- if request.design_mode -%}
 <script src="{{ 'amBanner.js' | asset_url }}" defer="defer"></script>
-
 
     {%- endif -%}
 
